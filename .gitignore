@@ -32,6 +32,25 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# local CMS database and uploaded media
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+/media/
+
+# local agent and cloud configuration
+/.agents/
+/.codex/
+/.aws/
 
 # vercel
 .vercel
