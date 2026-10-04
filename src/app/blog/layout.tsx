@@ -16,7 +16,7 @@ export default async function BlogLayout({ children }: { children: ReactNode }) 
   return (
     <>
       <Header activePage="blog" />
-      <main className="blog-page w-full flex-1 bg-surface px-6 pb-20 pt-32 md:pb-28 md:pt-40">
+      <main className="blog-page w-full flex-1 bg-surface px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-32 md:pb-28 md:pt-40">
         {children}
       </main>
       <Footer

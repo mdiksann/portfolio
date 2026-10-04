@@ -39,6 +39,12 @@ export function HeroSection({
   const titleText = titles?.filter(Boolean).join(' / ') || 'Backend Developer'
   const heroRef = useRef<HTMLElement>(null)
   const reduceMotion = useReducedMotion()
+  const itemAnimation: Variants = reduceMotion
+    ? { visible: { opacity: 1, y: 0, transition: { duration: 0 } } }
+    : editorialItem
+  const wordAnimation: Variants = reduceMotion
+    ? { visible: { opacity: 1, y: 0, transition: { duration: 0 } } }
+    : splitWord
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -24])
   const gridY = useTransform(scrollYProgress, [0, 1], [0, 36])
@@ -47,35 +53,35 @@ export function HeroSection({
   const words = headline.split(' ')
 
   return (
-    <motion.section id="home" ref={heroRef} className="hero-stage hero-parallax-layers relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-6 pb-20 pt-36 text-center">
+    <motion.section id="home" ref={heroRef} className="hero-stage hero-parallax-layers relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-4 pb-12 pt-28 sm:px-6 sm:pb-20 sm:pt-36 text-center">
       <motion.div aria-hidden="true" className="hero-parallax-layer hero-parallax-layer--grid" style={reduceMotion ? undefined : { y: gridY }} />
       <motion.div aria-hidden="true" className="hero-parallax-layer hero-parallax-layer--accent" style={reduceMotion ? undefined : { y: accentY }} />
 
       <motion.div
         className="hero-content hero-editorial-stagger relative z-10 mx-auto flex w-full min-w-0 max-w-5xl flex-col items-center"
-        variants={editorialContainer}
+        variants={reduceMotion ? { visible: {} } : editorialContainer}
         initial={reduceMotion ? false : 'hidden'}
-        animate={reduceMotion ? undefined : 'visible'}
+        animate="visible"
         style={reduceMotion ? undefined : { y: contentY }}
       >
-        <motion.h1 aria-label={headline} className="text-split-reveal w-full min-w-0 text-balance font-sans text-[clamp(2.9rem,7.1vw,6.8rem)] font-semibold leading-[1.02] tracking-[-0.04em] text-hero" variants={editorialItem}>
+        <motion.h1 aria-label={headline} className="text-split-reveal w-full min-w-0 text-balance font-sans text-[clamp(2.1rem,9vw,3.5rem)] sm:text-[clamp(2.9rem,7.1vw,6.8rem)] font-semibold leading-[1.02] tracking-[-0.04em] text-hero" variants={itemAnimation}>
           {words.map((word, index) => (
             <span
               key={`${word}-${index}`}
               className={`mr-[0.22em] inline-block align-top ${word === 'Making' ? 'overflow-visible' : 'overflow-hidden'} last:mr-0`}
             >
-              <motion.span aria-hidden="true" className="inline-block align-top" variants={splitWord}>
+              <motion.span aria-hidden="true" className="inline-block align-top" variants={wordAnimation}>
                 {word}
               </motion.span>
             </span>
           ))}
         </motion.h1>
 
-        <motion.p variants={editorialItem} className="mt-7 max-w-2xl text-balance text-[1.0625rem] leading-7 text-hero-muted sm:text-[1.1875rem] sm:leading-8">
+        <motion.p variants={itemAnimation} className="mt-5 max-w-2xl sm:mt-7 text-balance text-base leading-7 text-hero-muted sm:text-[1.1875rem] sm:leading-8">
           {lang === 'en' ? (about || t('hero.about')) : t('hero.about')}
         </motion.p>
 
-        <motion.div variants={editorialItem} className="mt-9 flex flex-wrap items-center justify-center gap-3">
+        <motion.div variants={itemAnimation} className="mt-9 flex flex-wrap items-center justify-center gap-3">
           <a className="inline-flex items-center gap-2 rounded-full bg-hero px-6 py-3 text-[0.875rem] font-semibold text-hero-invert transition-transform active:scale-[0.98]" href="#projects">
             <span>{t('hero.viewWork')}</span>
             <span aria-hidden="true" className="font-mono text-[1rem] leading-none">↓</span>
@@ -85,13 +91,13 @@ export function HeroSection({
           </a>
         </motion.div>
 
-        <motion.div variants={editorialItem} className="hero-meta mt-16 grid w-full max-w-2xl grid-cols-1 gap-3 text-left sm:grid-cols-3">
+        <motion.div variants={itemAnimation} className="hero-meta mt-10 grid w-full max-w-2xl grid-cols-2 sm:mt-16 gap-3 text-left sm:grid-cols-3">
           {[
             [t('hero.locationLabel'), location || t('hero.locationValue')],
             [t('hero.focusLabel'), titleText],
             [t('hero.statusLabel'), lang === 'en' ? (status || t('hero.statusValue')) : t('hero.statusValue')],
           ].map(([label, value]) => (
-            <div key={label} className="hero-stat rounded-2xl p-4 backdrop-blur-md">
+            <div key={label} className="hero-stat min-w-0 rounded-2xl p-3 backdrop-blur-md last:col-span-2 sm:p-4 sm:last:col-span-1">
               <span className="block font-mono text-[0.6875rem] tracking-[0.04em] text-hero-soft">{label}</span>
               <span className="mt-1 block text-[0.875rem] font-medium leading-5 text-hero">{value}</span>
             </div>

@@ -143,7 +143,7 @@ export function ProjectsSection({
                   <div className="mt-7 flex flex-wrap items-center gap-3">
                     {project.repoUrl && (
                       <Link
-                        className="inline-flex items-center gap-2 rounded-full border border-outline-variant px-3 py-2 font-mono text-[0.75rem] tracking-[0.02em] text-primary transition-colors hover:border-primary"
+                        className="inline-flex items-center gap-2 rounded-full border border-outline-variant min-h-11 px-3 py-2 font-mono text-[0.75rem] tracking-[0.02em] text-primary transition-colors hover:border-primary"
                         href={project.repoUrl}
                         target={isInternalSource ? undefined : "_blank"}
                         rel={isInternalSource ? undefined : "noreferrer"}
@@ -156,7 +156,7 @@ export function ProjectsSection({
                     )}
                     {project.liveUrl && (
                       <a
-                        className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-2 font-mono text-[0.75rem] tracking-[0.02em] text-on-primary transition-transform active:scale-[0.98]"
+                        className="inline-flex items-center gap-2 rounded-full bg-primary min-h-11 px-3 py-2 font-mono text-[0.75rem] tracking-[0.02em] text-on-primary transition-transform active:scale-[0.98]"
                         href={project.liveUrl}
                         target="_blank"
                         rel="noreferrer"

@@ -271,6 +271,7 @@ body {
 }
 
 .project-card {
+  min-width: 0;
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--color-surface-container-lowest) 92%, var(--color-terminal)), var(--color-surface-container-lowest));
   border: 1px solid var(--color-outline-variant);
@@ -300,6 +301,7 @@ body {
 
 .project-card--wide {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   column-gap: clamp(1.25rem, 4vw, 3rem);
   row-gap: 1.5rem;
 }
@@ -575,6 +577,7 @@ body {
 }
 
 .contact-cell {
+  min-width: 0;
   background: color-mix(in srgb, var(--color-on-inverse) 8%, transparent);
   border: 1px solid color-mix(in srgb, var(--color-on-inverse) 14%, transparent);
   border-radius: 8px;
@@ -592,38 +595,146 @@ body {
 }
 
 @media (max-width: 767px) {
+  .portfolio-section {
+    padding: 3rem 1rem;
+    scroll-margin-top: 6rem;
+  }
+
+  .portfolio-section h2,
+  .blog-page h1 {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    line-height: 1.08;
+  }
+
+  .project-card,
+  .experience-item {
+    padding: 1rem;
+  }
+
+  .project-card h3,
+  .blog-card h2 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    line-height: 1.15;
+  }
+
+  .project-card :where(h3, p, span),
+  .hero-stat,
+  footer {
+    overflow-wrap: anywhere;
+  }
+
+  .project-metrics {
+    padding: 0.75rem;
+  }
+
+  .contact-card {
+    padding: 1.25rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-cell {
+    padding: 0.75rem;
+  }
+
+  .timeline-stack {
+    min-width: 0;
+    padding-left: 1.5rem;
+  }
+
+  .timeline-stack::before {
+    left: 0.35rem;
+  }
+
+  .experience-item::before {
+    left: -1.15rem;
+    top: 1.675rem;
+    width: 1.15rem;
+  }
+
+  .experience-marker {
+    height: 0.85rem;
+    left: -1.575rem;
+    top: 1.25rem;
+    width: 0.85rem;
+  }
+
+  .skills-board > div > div:first-child {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 1023px) {
   .tool-deck {
-    justify-content: flex-start;
-    margin-inline: -1.5rem;
-    min-height: 13rem;
-    overflow-x: auto;
-    padding-inline: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    min-height: 0;
+    padding: 0;
+  }
+
+  .tool-deck::after,
+  .tool-card__tooltip::after {
+    display: none;
   }
 
   .tool-card {
-    flex-basis: 6.5rem;
-    height: 6.5rem;
-    margin-left: -0.85rem;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: auto;
+    margin-left: 0;
+    min-width: 0;
+    padding: 1rem 0.25rem;
+    transform: none;
   }
 
   .tool-card:hover,
   .tool-card:focus-visible {
-    transform: translateY(-1.25rem) rotate(0deg) scale(1.04);
+    transform: translateY(-4px);
   }
 
   .tool-card__logo,
   .tool-card__mark {
-    border-radius: 14px;
-    height: 3.4rem;
-    min-width: 3.4rem;
+    border-radius: 12px;
+    flex-shrink: 0;
+    height: 3rem;
+    min-width: 3rem;
   }
 
-  .timeline-stack {
-    padding-left: 2.75rem;
+  .tool-card__tooltip,
+  .tool-card:hover .tool-card__tooltip,
+  .tool-card:focus-visible .tool-card__tooltip {
+    background: transparent;
+    color: var(--color-on-surface);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    opacity: 1;
+    order: 2;
+    padding: 0;
+    position: static;
+    text-align: center;
+    transform: none;
+    white-space: normal;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .tool-deck {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (hover: none) {
+  .site-header[data-dimmed='true'] {
+    opacity: 0.75;
   }
 
-  .experience-marker {
-    left: -2.32rem;
+  .site-header:focus-within {
+    opacity: 1;
   }
 }
 
@@ -701,6 +812,7 @@ body {
 }
 
 .blog-prose pre code { background: transparent; color: inherit; padding: 0; }
+.blog-prose table { display: block; max-width: 100%; overflow-x: auto; }
 .blog-prose :where(img, picture) { display: block; height: auto; max-width: 100%; }
 .blog-prose img { border-radius: 8px; }
 .blog-prose hr { border-color: var(--color-outline-variant); margin-block: 2.5rem; }

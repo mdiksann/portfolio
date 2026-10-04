@@ -76,9 +76,9 @@ export function Footer({
 
   return (
     <footer className="w-full border-t border-surface-variant bg-surface">
-      <div className="max-w-[72rem] mx-auto px-6 py-[4.5rem] flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2">
+      <div className="w-full max-w-[72rem] mx-auto px-4 py-12 sm:px-6 md:py-[4.5rem] flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div className="flex min-w-0 flex-col gap-1">
+          <div className="flex min-w-0 flex-col items-start gap-2 sm:flex-row sm:flex-wrap sm:items-center">
             <span className="font-sans text-[1.125rem] leading-6 tracking-[-0.015em] font-medium text-on-surface">
               {name}
             </span>
@@ -91,10 +91,10 @@ export function Footer({
             {new Date().getFullYear()} {t("footer.copyright")}
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-6 font-mono text-[0.75rem] tracking-[0.02em]">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[0.75rem] tracking-[0.02em]">
           {socials?.github && (
             <a
-              className="text-on-surface-variant hover:text-on-surface transition-colors"
+              className="inline-flex min-h-11 items-center text-on-surface-variant hover:text-on-surface transition-colors"
               href={socials.github}
               target="_blank"
               rel="noreferrer"
@@ -104,7 +104,7 @@ export function Footer({
           )}
           {socials?.linkedin && (
             <a
-              className="text-on-surface-variant hover:text-on-surface transition-colors"
+              className="inline-flex min-h-11 items-center text-on-surface-variant hover:text-on-surface transition-colors"
               href={socials.linkedin}
               target="_blank"
               rel="noreferrer"
@@ -114,7 +114,7 @@ export function Footer({
           )}
           {socials?.twitter && (
             <a
-              className="text-on-surface-variant hover:text-on-surface transition-colors"
+              className="inline-flex min-h-11 items-center text-on-surface-variant hover:text-on-surface transition-colors"
               href={socials.twitter}
               target="_blank"
               rel="noreferrer"

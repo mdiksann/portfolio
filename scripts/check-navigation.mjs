@@ -6,7 +6,7 @@ import ts from 'typescript'
 
 const loadDependency = createRequire(import.meta.url)
 
-let expanded = true, scroll, effect, refIndex = 0, observerCallback, disconnected = false
+let expanded = null, scroll, effect, refIndex = 0, observerCallback, disconnected = false
 const refs = []
 const header = { dataset: {} }
 const home = {}
@@ -50,7 +50,19 @@ const cleanup = effect()
 observerCallback([{ isIntersecting: false }]); assert.equal(header.dataset.dimmed, 'true')
 observerCallback([{ isIntersecting: true }]); assert.equal(header.dataset.dimmed, 'false')
 assert.equal(element.props.children.props.variants.expanded.width, 358)
+assert.equal(element.props.children.props.children[0].props['aria-expanded'], false)
+assert.equal(element.props.children.props.variants.collapsed.width, 80)
+assert.equal(element.props.children.props.variants.collapsed.height, 40)
+assert.equal(element.props.children.props.children[1].props.inert, true)
+assert.equal(element.props.children.props.children[2].props.children, 'EN')
+element.props.children.props.children[0].props.onClick()
+element = render()
+assert.equal(element.props.children.props.children[1].props.inert, false)
+assert.equal(element.props.children.props.children[1].props.children[1], false)
+assert.equal(element.props.children.props.children[2].props.children, 'EN')
 scroll(160); assert.equal(expanded, false)
+render(); scroll(700); scroll(619); assert.equal(expanded, false)
+windowMock.innerWidth = 1024
 render(); scroll(700); scroll(650); assert.equal(expanded, false)
 scroll(619); assert.equal(expanded, true)
 element = render()
@@ -65,7 +77,7 @@ toggle.props.onClick(); assert.equal(expanded, false)
 element = render()
 assert.equal(element.props.children.props.children[1].props.inert, true)
 assert.equal(element.props.children.props.variants.collapsed.width, 56)
-assert.equal(element.props.children.props.variants.collapsed.width, element.props.children.props.style.height)
+assert.equal(element.props.children.props.variants.collapsed.width, element.props.children.props.variants.collapsed.height)
 element.props.children.props.children[0].props.onClick(); assert.equal(expanded, true)
 cleanup(); assert.equal(disconnected, true)
 console.log('Navigation checks passed: scroll direction, click toggle, mobile width, links, language button, hidden-link accessibility, and Home opacity.')
